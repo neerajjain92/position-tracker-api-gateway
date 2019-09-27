@@ -16,14 +16,14 @@ import java.util.Date;
  * All rights reserved.
  */
 @Data
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlRootElement
+//@XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
 public class VehiclePosition implements Comparable<VehiclePosition> {
 
     private String name;
     private BigDecimal lat;
-    private BigDecimal longitude;
+    private BigDecimal lng;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="UTC")
     private Date timestamp;

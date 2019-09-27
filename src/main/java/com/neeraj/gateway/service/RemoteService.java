@@ -2,7 +2,9 @@ package com.neeraj.gateway.service;
 
 import com.neeraj.gateway.domain.VehiclePosition;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
 
@@ -14,9 +16,9 @@ import java.util.Collection;
 @FeignClient(url = "${position-tracker-url}", name = "position-tracker")
 public interface RemoteService {
 
-    @GetMapping("/vehicles/")
+    @GetMapping("/vehicles")
     Collection<VehiclePosition> getAllLatestPositionsSince(@RequestParam("since") String date);
 
-    @GetMapping("/vehicles/{vehicleName}")
+    @GetMapping("/vehicles/history/{vehicleName}")
     Collection<VehiclePosition> getHistoryFor(@PathVariable("vehicleName") String vehicleName);
 }
