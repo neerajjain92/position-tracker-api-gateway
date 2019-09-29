@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableFeignClients(basePackageClasses = com.neeraj.gateway.service.RemoteService.class)
 @EnableScheduling
 public class PositionTrackerApiGatewayApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(PositionTrackerApiGatewayApplication.class, args);
     }

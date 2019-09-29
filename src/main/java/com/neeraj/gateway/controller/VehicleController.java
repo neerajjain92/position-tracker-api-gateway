@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +32,7 @@ public class VehicleController {
     @Autowired
     private PositionTrackingExternalService positionTrackingExternalService;
 
-    private Date lastUpdateTime = new Date();
+    private Date lastUpdateTime;
 
     @GetMapping("/")
     public String healthCheck() {
@@ -54,12 +57,9 @@ public class VehicleController {
      * whoever has subscribed to this websocket
      */
     @Scheduled(fixedRate = 2000)
-    @MessageMapping
     public void updatePositions() {
         Collection<VehiclePosition> positions = positionTrackingExternalService.getAllUpdatedPositionsSince(lastUpdateTime);
         this.lastUpdateTime = new Date();
-        positions.forEach((position) -> {
-            this.messagingTemplate.convertAndSend("/vehiclepositions/messsages", position);
-        });
+        positions.forEach((position) -> this.messagingTemplate.convertAndSend("/chat", position));
     }
 }

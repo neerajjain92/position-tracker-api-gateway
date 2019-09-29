@@ -17,7 +17,10 @@ import java.util.Collection;
 public interface RemoteService {
 
     @GetMapping("/vehicles")
-    Collection<VehiclePosition> getAllLatestPositionsSince(@RequestParam("since") String date);
+    Collection<VehiclePosition> getAllLatestPositionsSince(@RequestParam(value = "since", required = false) String date);
+
+    @GetMapping("/vehicles")
+    Collection<VehiclePosition> getAllLatestPositionsSince();
 
     @GetMapping("/vehicles/history/{vehicleName}")
     Collection<VehiclePosition> getHistoryFor(@PathVariable("vehicleName") String vehicleName);

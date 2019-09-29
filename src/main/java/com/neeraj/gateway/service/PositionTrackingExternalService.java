@@ -26,8 +26,9 @@ public class PositionTrackingExternalService {
 
     @HystrixCommand(fallbackMethod = "handleExternalServiceDown")
     public Collection<VehiclePosition> getAllUpdatedPositionsSince(Date since) {
-        String date = formatter.format(since);
-        Collection<VehiclePosition> positions = remoteService.getAllLatestPositionsSince(date);
+        Collection<VehiclePosition> positions = since != null
+                ? remoteService.getAllLatestPositionsSince(formatter.format(since))
+                : remoteService.getAllLatestPositionsSince();
         return positions;
     }
 
